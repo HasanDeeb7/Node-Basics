@@ -47,11 +47,21 @@ function onDataReceived(text) {
     console.log(`Hello${args? ' ' + args : ''}!`)
   } else if (action === "--help" || action === "-h") {
     help();
-  }else if(action === 'list'){
-    list()
+  }else if(action === 'list' || action === 'ls'){
+    command.length === 1 ? list() : console.log('list do not take arguments')
   } else if(action === 'add'){
     command.length === 2 ? add(args) : console.log('add should take ONE argument');
-  
+  }else if(action === 'remove'){
+    if (args){
+      if(isNaN(Number(args))){
+        console.log('remove argument should be a number')
+        return
+      } 
+        command.length <=2 ? remove(args) : console.log(`remove can't take more than one argument`)
+    }else {
+      remove();
+      console.log('last task has been removed')
+    }
   }
    else {
     unknownCommand(text);
@@ -104,6 +114,9 @@ function list(){
 function add(task){
   tasks.push(task)
   console.log('task have been added successfuly')
+}
+function remove(number = ''){
+  tasks.splice(number - 1 ,1)
 }
 // The following line starts the application
 startApp("Jad Sarout");
