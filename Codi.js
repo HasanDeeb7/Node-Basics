@@ -47,9 +47,13 @@ function onDataReceived(text) {
     console.log(`Hello${args? ' ' + args : ''}!`)
   } else if (action === "--help" || action === "-h") {
     help();
-  } else {
+  }else if(action === 'list'){
+    list()
+  }
+   else {
     unknownCommand(text);
   }
+
 }
 
 /**
@@ -87,6 +91,11 @@ function help() {
   hello             prints hello
   quit, exit        stop running the app `);
 }
-
+function list(){
+  tasks.forEach((task,idx) => {
+    console.log(`${idx + 1} - ${task}\n`)
+  });
+}
 // The following line starts the application
 startApp("Jad Sarout");
+var tasks = ['Debate research', 'Node basics', 'Drink coffe', 'Forget sleeping!']
