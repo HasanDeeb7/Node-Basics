@@ -72,7 +72,7 @@ function quit() {
   console.log("Quitting now, goodbye!");
   process.exit();
 }
-
+// prints all possible commands and their purpose when the user type '-h' or '--help'
 function help() {
   console.log(`
   hello             prints hello
