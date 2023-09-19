@@ -32,11 +32,18 @@ function startApp(name) {
  * @returns {void}
  */
 function onDataReceived(text) {
-  if (text === "quit\n" || text === "exit\n") {
+  const command = text.replace('\n', '').trim().split(' ')
+  const action = command[0]
+  const args = command[1]
+
+
+  
+  if (action === "quit" || action === "exit") {
     quit();
-  } else if (text === "hello\n") {
-    hello();
-  } else if (text === "--help\n" || text === "-h\n") {
+  } else if (action === "hello") {
+    command.length > 2 ? console.log('Hello takes 1 argument') :
+    console.log(`Hello${args? ' ' + args : ''}!`)
+  } else if (action === "--help" || action === "-h") {
     help();
   } else {
     unknownCommand(text);
