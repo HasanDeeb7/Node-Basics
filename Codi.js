@@ -43,12 +43,15 @@ function onDataReceived(text) {
     quit();
   } else if (action === "hello") {
     // handle more than one argument
-    command.length > 2 ? console.log('Hello takes 1 argument') :
+    command.length > 2 ? console.log('Hello takes one argument') :
     console.log(`Hello${args? ' ' + args : ''}!`)
   } else if (action === "--help" || action === "-h") {
     help();
   }else if(action === 'list'){
     list()
+  } else if(action === 'add'){
+    command.length === 2 ? add(args) : console.log('add should take ONE argument');
+  
   }
    else {
     unknownCommand(text);
@@ -91,11 +94,17 @@ function help() {
   hello             prints hello
   quit, exit        stop running the app `);
 }
+// function to list todo tasks when the user run 'list' command
 function list(){
   tasks.forEach((task,idx) => {
     console.log(`${idx + 1} - ${task}\n`)
   });
 }
+// function to add a task to the todo list when the user run 'add' command with an argument containing a the task
+function add(task){
+  tasks.push(task)
+  console.log('task have been added successfuly')
+}
 // The following line starts the application
 startApp("Jad Sarout");
-var tasks = ['Debate research', 'Node basics', 'Drink coffe', 'Forget sleeping!']
+var tasks = ['Debate research', 'Node basics', 'Drink coffee', 'Forget sleeping!']
