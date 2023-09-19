@@ -32,6 +32,7 @@ function startApp(name) {
  * @returns {void}
  */
 function onDataReceived(text) {
+  // split the text into action and argument
   const command = text.replace('\n', '').trim().split(' ')
   const action = command[0]
   const args = command[1]
@@ -41,6 +42,7 @@ function onDataReceived(text) {
   if (action === "quit" || action === "exit") {
     quit();
   } else if (action === "hello") {
+    // handle more than one argument
     command.length > 2 ? console.log('Hello takes 1 argument') :
     console.log(`Hello${args? ' ' + args : ''}!`)
   } else if (action === "--help" || action === "-h") {
