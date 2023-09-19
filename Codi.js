@@ -116,8 +116,13 @@ function add(task){
   console.log('task have been added successfuly')
 }
 // function to remove a task form the list, default value to handle undefiened values
-function remove(number = ''){
-  tasks.splice(number - 1 ,1)
+function remove(number = tasks.length){
+  if (number - 1 <= tasks.length){
+    tasks.splice(number - 1 ,1)
+  }else{
+    console.log(`number doesn't exist`)
+  }
+
 }
 // The following line starts the application
 startApp("Jad Sarout");
