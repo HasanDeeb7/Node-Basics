@@ -115,6 +115,7 @@ function add(task){
   tasks.push(task)
   console.log('task have been added successfuly')
 }
+// function to remove a task form the list, default value to handle undefiened values
 function remove(number = ''){
   tasks.splice(number - 1 ,1)
 }
