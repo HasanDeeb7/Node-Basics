@@ -56,12 +56,19 @@ function onDataReceived(text) {
       if(isNaN(Number(args))){
         console.log('remove argument should be a number')
         return
-      } 
+      }
         command.length <=2 ? remove(args) : console.log(`remove can't take more than one argument`)
-    }else {
+    }
+    else {
       remove();
       console.log('last task has been removed')
     }
+  }else if(action === 'edit'){
+    if (command.length < 2){
+      console.log('edit should at least have one argument')
+    }else{
+      edit(args,command.slice(1))
+    }  
   }
    else {
     unknownCommand(text);
@@ -123,6 +130,16 @@ function remove(number = tasks.length){
     console.log(`number doesn't exist`)
   }
 
+}
+
+function edit(args,command){
+  if (isNaN(Number(args))){
+    tasks.splice(-1, 1, command.slice(0).join(' '))
+    console.log(command[0])
+  }else(
+    tasks.splice(Number(args) - 1, 1, command.slice(1).join(' '))
+    // console.log('else: '+ typeof Number(command[0]))
+  )
 }
 // The following line starts the application
 startApp("Jad Sarout");
