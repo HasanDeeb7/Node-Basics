@@ -8,8 +8,14 @@
  * @param  {string} name the name of the app
  * @returns {void}
  */
-
+let tasks = [];
 const fs = require("fs");
+try {
+  let dataRecieved = fs.readFileSync("database.json");
+  tasks = JSON.parse(dataRecieved);
+} catch (err) {
+  console.error("Error receiving data from file", err);
+}
 
 function startApp(name) {
   process.stdin.resume();
@@ -52,8 +58,8 @@ function onDataReceived(text) {
   } else if (action === "list" || action === "ls") {
     command.length === 1 ? list() : console.log("list do not take arguments");
   } else if (action === "add") {
-    command.length === 2
-      ? add(args)
+    command.length >= 2
+      ? add(command.slice(1).join(' '))
       : console.log("add should take ONE argument");
   } else if (action === "remove") {
     if (args) {
@@ -115,6 +121,7 @@ function hello() {
  */
 function quit() {
   console.log("Quitting now, goodbye!");
+  saveData();
   process.exit();
 }
 // prints all possible commands and their purpose when the user type '-h' or '--help'
@@ -166,11 +173,10 @@ function check(args) {
 function uncheck(args) {
   tasks[args - 1].done = false;
 }
+function saveData() {
+  let data = JSON.stringify(tasks);
+  fs.writeFileSync("database.json", data);
+}
+
 // The following line starts the application
 startApp("Jad Sarout");
-
-let dataRecieved = fs.readFileSync('database.json')
-let tasks = JSON.parse(dataRecieved)
-
-let data = JSON.stringify(tasks);
-fs.writeFileSync("database.json", data);
