@@ -71,10 +71,14 @@ function onDataReceived(text) {
     } else {
       edit(args, command.slice(1));
     }
-  }else if(action === 'check'){
-    if (command.length === 2 && !isNaN(Number(args)) ){
-      check(args)
-    }else console.log("check should take a number as an only argument")
+  } else if (action === "check") {
+    if (command.length === 2 && !isNaN(Number(args))) {
+      check(args);
+    } else console.log("check should take a number as an only argument");
+  } else if (action === "uncheck") {
+    if (command.length === 2 && !isNaN(Number(args))) {
+      uncheck(args);
+    } else console.log("check should take a number as an only argument");
   } else {
     unknownCommand(text);
   }
@@ -118,12 +122,14 @@ function help() {
 // function to list todo tasks when the user run 'list' command
 function list() {
   tasks.forEach((task, idx) => {
-    console.log(`${task.done ? '[\u2714]' : '[\u2718]'} ${idx + 1} - ${task.task}\n`);
+    console.log(
+      `${task.done ? "[\u2714]" : "[\u2718]"} ${idx + 1} - ${task.task}\n`
+    );
   });
 }
 // function to add a task to the todo list when the user run 'add' command with an argument containing a the task
 function add(task) {
-  tasks.push({task: task, done: false});
+  tasks.push({ task: task, done: false });
   console.log("task have been added successfuly");
 }
 // function to remove a task form the list, default value to handle undefiened values
@@ -137,14 +143,17 @@ function remove(number = tasks.length) {
 
 function edit(args, command) {
   if (isNaN(Number(args))) {
-    tasks.splice(-1, 1, {task: command.slice(0).join(" ")});
+    tasks.splice(-1, 1, { task: command.slice(0).join(" ") });
     console.log(command[0]);
   } else
-    tasks.splice(Number(args) - 1, 1, {task: command.slice(1).join(" ")});
-    // console.log('else: '+ typeof Number(command[0]))
+    tasks.splice(Number(args) - 1, 1, { task: command.slice(1).join(" ") });
+  // console.log('else: '+ typeof Number(command[0]))
 }
-function check(args){
-  tasks[args - 1].done = !tasks[args - 1].done
+function check(args) {
+  tasks[args - 1].done = true;
+}
+function uncheck(args) {
+  tasks[args - 1].done = false;
 }
 // The following line starts the application
 startApp("Jad Sarout");
