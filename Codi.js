@@ -10,8 +10,9 @@
  */
 let tasks = [];
 const fs = require("fs");
+const file = process.argv[2] || 'database.json'
 try {
-  let dataRecieved = fs.readFileSync("database.json");
+  let dataRecieved = fs.readFileSync('database.json');
   tasks = JSON.parse(dataRecieved);
 } catch (err) {
   console.error("Error receiving data from file", err);
@@ -175,7 +176,7 @@ function uncheck(args) {
 }
 function saveData() {
   let data = JSON.stringify(tasks);
-  fs.writeFileSync("database.json", data);
+  fs.writeFileSync(file, data);
 }
 
 // The following line starts the application
