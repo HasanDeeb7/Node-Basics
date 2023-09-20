@@ -33,47 +33,47 @@ function startApp(name) {
  */
 function onDataReceived(text) {
   // split the text into action and argument
-  const command = text.replace('\n', '').trim().split(' ')
-  const action = command[0]
-  const args = command[1]
+  const command = text.replace("\n", "").trim().split(" ");
+  const action = command[0];
+  const args = command[1];
 
-
-  
   if (action === "quit" || action === "exit") {
     quit();
   } else if (action === "hello") {
     // handle more than one argument
-    command.length > 2 ? console.log('Hello takes one argument') :
-    console.log(`Hello${args? ' ' + args : ''}!`)
+    command.length > 2
+      ? console.log("Hello takes one argument")
+      : console.log(`Hello${args ? " " + args : ""}!`);
   } else if (action === "--help" || action === "-h") {
     help();
-  }else if(action === 'list' || action === 'ls'){
-    command.length === 1 ? list() : console.log('list do not take arguments')
-  } else if(action === 'add'){
-    command.length === 2 ? add(args) : console.log('add should take ONE argument');
-  }else if(action === 'remove'){
-    if (args){
-      if(isNaN(Number(args))){
-        console.log('remove argument should be a number')
-        return
+  } else if (action === "list" || action === "ls") {
+    command.length === 1 ? list() : console.log("list do not take arguments");
+  } else if (action === "add") {
+    command.length === 2
+      ? add(args)
+      : console.log("add should take ONE argument");
+  } else if (action === "remove") {
+    if (args) {
+      if (isNaN(Number(args))) {
+        console.log("remove argument should be a number");
+        return;
       }
-        command.length <=2 ? remove(args) : console.log(`remove can't take more than one argument`)
-    }
-    else {
+      command.length <= 2
+        ? remove(args)
+        : console.log(`remove can't take more than one argument`);
+    } else {
       remove();
-      console.log('last task has been removed')
+      console.log("last task has been removed");
     }
-  }else if(action === 'edit'){
-    if (command.length < 2){
-      console.log('edit should at least have one argument')
-    }else{
-      edit(args,command.slice(1))
-    }  
-  }
-   else {
+  } else if (action === "edit") {
+    if (command.length < 2) {
+      console.log("edit should at least have one argument");
+    } else {
+      edit(args, command.slice(1));
+    }
+  } else {
     unknownCommand(text);
   }
-
 }
 
 /**
@@ -112,35 +112,38 @@ function help() {
   quit, exit        stop running the app `);
 }
 // function to list todo tasks when the user run 'list' command
-function list(){
-  tasks.forEach((task,idx) => {
-    console.log(`${idx + 1} - ${task}\n`)
+function list() {
+  tasks.forEach((task, idx) => {
+    console.log(`${task.done ? '[\u2714]' : '[\u2718]'} ${idx + 1} - ${task.task}\n`);
   });
 }
 // function to add a task to the todo list when the user run 'add' command with an argument containing a the task
-function add(task){
-  tasks.push(task)
-  console.log('task have been added successfuly')
+function add(task) {
+  tasks.push({task: task, done: false});
+  console.log("task have been added successfuly");
 }
 // function to remove a task form the list, default value to handle undefiened values
-function remove(number = tasks.length){
-  if (number - 1 <= tasks.length){
-    tasks.splice(number - 1 ,1)
-  }else{
-    console.log(`number doesn't exist`)
+function remove(number = tasks.length) {
+  if (number - 1 <= tasks.length) {
+    tasks.splice(number - 1, 1);
+  } else {
+    console.log(`number doesn't exist`);
   }
-
 }
 
-function edit(args,command){
-  if (isNaN(Number(args))){
-    tasks.splice(-1, 1, command.slice(0).join(' '))
-    console.log(command[0])
-  }else(
-    tasks.splice(Number(args) - 1, 1, command.slice(1).join(' '))
+function edit(args, command) {
+  if (isNaN(Number(args))) {
+    tasks.splice(-1, 1, {task: command.slice(0).join(" ")});
+    console.log(command[0]);
+  } else
+    tasks.splice(Number(args) - 1, 1, {task: command.slice(1).join(" ")});
     // console.log('else: '+ typeof Number(command[0]))
-  )
 }
 // The following line starts the application
 startApp("Jad Sarout");
-var tasks = ['Debate research', 'Node basics', 'Drink coffee', 'Forget sleeping!']
+var tasks = [
+  { task: "Debate research", done: false },
+  { task: "Node basics", done: false },
+  { task: "Drink coffee", done: true },
+  { task: "Forget sleeping!", done: true },
+];
