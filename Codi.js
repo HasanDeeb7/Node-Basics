@@ -71,6 +71,10 @@ function onDataReceived(text) {
     } else {
       edit(args, command.slice(1));
     }
+  }else if(action === 'check'){
+    if (command.length === 2 && !isNaN(Number(args)) ){
+      check(args)
+    }else console.log("check should take a number as an only argument")
   } else {
     unknownCommand(text);
   }
@@ -138,6 +142,9 @@ function edit(args, command) {
   } else
     tasks.splice(Number(args) - 1, 1, {task: command.slice(1).join(" ")});
     // console.log('else: '+ typeof Number(command[0]))
+}
+function check(args){
+  tasks[args - 1].done = !tasks[args - 1].done
 }
 // The following line starts the application
 startApp("Jad Sarout");
