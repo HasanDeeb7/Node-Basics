@@ -93,6 +93,7 @@ function onDataReceived(text) {
  */
 function unknownCommand(c) {
   console.log('unknown command: "' + c.trim() + '"');
+  console.log('run --help or -h to check possible commands')
 }
 
 /**
@@ -116,8 +117,15 @@ function quit() {
 // prints all possible commands and their purpose when the user type '-h' or '--help'
 function help() {
   console.log(`
-  hello             prints hello
-  quit, exit        stop running the app `);
+  hello                             prints hello
+  quit, exit                        stop running the app
+  list, ls                          list all tasks with the completion status 
+  add <arguments>                   adds a task to the tasks list
+  remove [number]                   remove the task at specified number from the list, removes the last task if no arguments
+  edit [number] <text to replace>   update the task at the number specified with the text specified, update the last task if no arguments
+  check/uncheck <number>            toggle the status of the task
+  
+  `);
 }
 // function to list todo tasks when the user run 'list' command
 function list() {
