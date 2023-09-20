@@ -8,6 +8,9 @@
  * @param  {string} name the name of the app
  * @returns {void}
  */
+
+const fs = require("fs");
+
 function startApp(name) {
   process.stdin.resume();
   process.stdin.setEncoding("utf8");
@@ -93,7 +96,7 @@ function onDataReceived(text) {
  */
 function unknownCommand(c) {
   console.log('unknown command: "' + c.trim() + '"');
-  console.log('run --help or -h to check possible commands')
+  console.log("run --help or -h to check possible commands");
 }
 
 /**
@@ -165,9 +168,9 @@ function uncheck(args) {
 }
 // The following line starts the application
 startApp("Jad Sarout");
-var tasks = [
-  { task: "Debate research", done: false },
-  { task: "Node basics", done: false },
-  { task: "Drink coffee", done: true },
-  { task: "Forget sleeping!", done: true },
-];
+
+let dataRecieved = fs.readFileSync('database.json')
+let tasks = JSON.parse(dataRecieved)
+
+let data = JSON.stringify(tasks);
+fs.writeFileSync("database.json", data);
