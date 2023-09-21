@@ -8,6 +8,7 @@
  * @param  {string} name the name of the app
  * @returns {void}
  */
+
 let tasks = [];
 const fs = require("fs");
 const file = process.argv[2] || 'database.json'
@@ -180,4 +181,5 @@ function saveData() {
 }
 
 // The following line starts the application
-startApp("Jad Sarout");
+startApp("Hasan Deeb");
+
